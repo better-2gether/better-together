@@ -22,3 +22,4 @@ export interface Org {
   causes: string[];
   events: Event[];
 }
+
