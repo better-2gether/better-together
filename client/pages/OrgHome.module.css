@@ -21,6 +21,7 @@
   flex-direction: column;
   background-color: rgba(255, 0, 0, 0.2);  /* TEMPORARY FOR DEV */
   width: 100%;
+  min-width: 300px;
 }
 
 
