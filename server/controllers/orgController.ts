@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-export const orgController: Record<string, any> = {};
+const orgController: Record<string, any> = {};
 
 // login
 // handle auth here
@@ -24,3 +24,5 @@ orgController.deleteEvent = async (req, res, next) => {};
 
 // delete org
 orgController.deleteOrg = async (req, res, next) => {};
+
+export default orgController;

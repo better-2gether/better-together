@@ -1,5 +1,6 @@
 import { Schema, Document, model } from 'mongoose';
 import { User } from './types.js';
+import bcrypt from 'bcryptjs';
 
 // declare a new interface for User Model
 interface IUserModel extends User, Document {}
@@ -17,6 +18,27 @@ const userSchema = new Schema<IUserModel>({
       rank: { type: Number, required: true },
     },
   ],
+});
+
+//bcrypt pre middleware
+userSchema.pre("save", function(next) {
+  const user = this;
+
+  if(this.isModified("password") || this.isNew) {
+    bcrypt.genSalt(10, function (saltError, salt){
+      if(saltError) return next(saltError);
+      else{
+        bcrypt.hash(user.password, salt, function(hashError, hash){
+          if(hashError) return next(hashError);
+
+          user.password = hash;
+          next();
+        })
+      }
+    })
+  }else{
+    return next();
+  }
 });
 
 export const UserModel = model<IUserModel>('User', userSchema);
