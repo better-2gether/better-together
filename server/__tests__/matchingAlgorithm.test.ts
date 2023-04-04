@@ -1,4 +1,4 @@
-import { User, Org, Event } from '../models/types';
+import { User, Org } from '../models/types';
 import {
   getUserTopChoices,
   getOrgTopChoices,
@@ -53,7 +53,7 @@ describe('matching algorithm unit tests', () => {
       },
     ];
 
-    test('should rank events based on user skills and preferences', () => {
+    it('should rank events based on user skills and preferences', () => {
       getUserTopChoices(user, orgs);
       expect(user.eventRanks[0].event.title).toBe('Event 1');
       expect(user.eventRanks[1].event.title).toBe('Event 2');
@@ -81,18 +81,18 @@ describe('matching algorithm unit tests', () => {
         ],
       };
       user1 = {
-        firstName: 'John',
-        lastName: 'Doe',
-        username: 'johndoe',
+        firstName: 'Keely',
+        lastName: 'Timms',
+        username: 'keelytimms',
         password: 'password',
         skills: ['dog walking', 'cat grooming'],
         preferences: { animals: 2, environment: 0 },
         eventRanks: [],
       };
       user2 = {
-        firstName: 'Jane',
-        lastName: 'Doe',
-        username: 'janedoe',
+        firstName: 'Yusuf',
+        lastName: 'Bhaiyat',
+        username: 'yusufbhaiyat',
         password: 'password',
         skills: ['dog walking'],
         preferences: { animals: 1, environment: 0 },
