@@ -6,6 +6,7 @@ import styles from './OrgHome.module.css';
 const OrgHome = ( { orgId, orgName, username, causes, events }: Org ) => {
   return (
     <div className={styles.container}>
+      
       <div className={styles['event-container']}>
         {events && events.map((event: Event): JSX.Element => {
           return (
@@ -19,8 +20,8 @@ const OrgHome = ( { orgId, orgName, username, causes, events }: Org ) => {
             />
           );
         })}
-
       </div>
+
       <div className={styles['details-container']}>
         <OrgCalendar />
       </div>
