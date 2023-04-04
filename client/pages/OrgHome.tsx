@@ -8,15 +8,12 @@ const OrgHome = ( { orgId, orgName, username, causes, events }: Org ) => {
     <div className={styles.container}>
       
       <div className={styles['event-container']}>
-        {events && events.map((event: Event): JSX.Element => {
+        {events && events.map((event: Event, i: number): JSX.Element => {
           return (
             <EventCard
               key={event.eventId}
-              eventId={event.eventId}
-              title={event.title}
-              date={event.date}
-              needs={event.needs}
-              userRanks={event.userRanks}
+              event={event}
+              darkStyle={i % 2 === 0}
             />
           );
         })}

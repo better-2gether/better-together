@@ -1,7 +1,7 @@
 .container {
   background-color: var(--color-primary);
   width: 100%;
-  height: 100%;
+  height: calc(100% - 45px);
   display: flex;
   flex-direction: column-reverse;
   justify-content: flex-start;
@@ -23,7 +23,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: rgba(255, 0, 0, 0.2);  /* TEMPORARY FOR DEV */
   width: 100%;
   min-width: 300px;
 }
