@@ -1,5 +1,5 @@
 :root {
-  --color-primary: rgb(147, 189, 239);
+  --color-primary: rgba(147, 188, 239, 0.615);
   --color-secondary: rgb(68, 70, 215);
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

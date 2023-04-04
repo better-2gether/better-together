@@ -1,4 +1,5 @@
 export interface User {
+  userId: any;
   firstName: string;
   lastName: string;
   username: string;
@@ -9,6 +10,7 @@ export interface User {
 }
 
 export interface Event {
+  eventId: any;
   title: string;
   date: Date;
   needs: string[];
@@ -16,6 +18,7 @@ export interface Event {
 }
 
 export interface Org {
+  orgId: any;
   orgName: string;
   username: string;
   password: string;

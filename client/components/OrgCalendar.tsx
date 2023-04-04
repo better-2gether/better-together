@@ -3,7 +3,7 @@ import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import styles from './OrgCalendar.module.css';
 
-const OrgCalendar = () => {
+const OrgCalendar = (): JSX.Element => {
   const initialDays: Date[] = [];
   const [days, setDays] = useState<Date[] | undefined>(initialDays);
 
@@ -26,7 +26,6 @@ const OrgCalendar = () => {
         selected={days}
         onSelect={setDays}
       />
-      
     </div>
   );
 }
