@@ -1,10 +1,16 @@
-// const express = require('express');
-import express from 'express';
-import path from 'path';
-import mongoose from 'mongoose';
+// import express from 'express';
+// import path from 'path';
+// import mongoose from 'mongoose';
+
+const express = require('express');
+const path = require('path');
+const mongoose = require('mongoose');
 
 const app = express();
-const port = process.env.PORT || 3000;
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+const port = 3000;
 
 // establish connection to database
 const URI =
@@ -23,6 +29,12 @@ connect();
 
 // Serve static files from the build folder
 app.use(express.static(path.join(__dirname, '../build')));
+
+//test route
+app.get('/api/data', (req, res) => {
+  const data = { message: 'Hello from the backend!' };
+  res.status(200).json(data);
+});
 
 // Handle all other requests with index.html, which will contain
 // a script tag to your application's JavaScript file(s).
