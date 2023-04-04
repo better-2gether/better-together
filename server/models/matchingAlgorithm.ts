@@ -2,6 +2,11 @@ import { User, Org } from './types';
 
 // -------------------------------------------User Logic-------------------------------------------------
 
+/**
+ * @function getUserTopChoices - updates the eventRanks property on the user object
+ * @param user - individual user
+ * @param orgs - array of all orgs
+ */
 export const getUserTopChoices = (user: User, orgs: Org[]): void => {
   // determine valid orgs
   const validOrgs = getValidOrgs(user, orgs);
@@ -9,6 +14,12 @@ export const getUserTopChoices = (user: User, orgs: Org[]): void => {
   rankEvents(user, validOrgs);
 };
 
+/**
+ * @function getValidOrgs - determines which orgs are valid based on users preferences
+ * @param user - individual user
+ * @param orgs - array of all orgs
+ * @returns - array of all valid orgs
+ */
 const getValidOrgs = (user: User, orgs: Org[]): Org[] => {
   const validOrgs: Org[] = [];
   for (let org of orgs) {
@@ -23,7 +34,11 @@ const getValidOrgs = (user: User, orgs: Org[]): Org[] => {
   return validOrgs;
 };
 
-// preference * # of skills
+/**
+ * @function rankEvents - ranks events by multiplying # of overlapping causes * # of overlapping skills
+ * @param user - individual user
+ * @param validOrgs - array of valid organizations
+ */
 const rankEvents = (user: User, validOrgs: Org[]): void => {
   const userSkills = new Set(user.skills);
   for (let org of validOrgs) {
@@ -33,7 +48,7 @@ const rankEvents = (user: User, validOrgs: Org[]): void => {
     for (let cause of causes) {
       causeCount += user.preferences[cause];
     }
-    // determine how many skill matches there per event
+    // determine how many skill matches the individual event
     const events = org.events;
     for (let event of events) {
       const needs = event.needs;
@@ -50,6 +65,11 @@ const rankEvents = (user: User, validOrgs: Org[]): void => {
 };
 
 // ---------------------------------------------Org Logic-------------------------------------------------
+/**
+ * @function getOrgTopChoices - determines users ranks per event
+ * @param org - individual org
+ * @param users - array of users
+ */
 export const getOrgTopChoices = (org: Org, users: User[]): void => {
   // determine valid users
   const validUsers = getUsers(org, users);
@@ -57,6 +77,12 @@ export const getOrgTopChoices = (org: Org, users: User[]): void => {
   rankUsers(org, validUsers);
 };
 
+/**
+ * @function getUsers - gets valid users
+ * @param org - individual org
+ * @param users - array of users
+ * @returns array of valid users
+ */
 const getUsers = (org: Org, users: User[]): User[] => {
   const validUsers: User[] = [];
   const orgCauses = org.causes;
