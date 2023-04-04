@@ -1,5 +1,5 @@
 import { Schema, Document, model } from 'mongoose';
-import { User } from './types';
+import { User } from './types.js';
 
 // declare a new interface for User Model
 interface IUserModel extends User, Document {}

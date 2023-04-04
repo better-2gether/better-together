@@ -2,6 +2,7 @@
   "name": "better-together",
   "private": true,
   "version": "0.0.0",
+  "main": "server/server.js",
   "type": "module",
   "jest": {
     "testEnvironment": "node",
@@ -20,10 +21,12 @@
   },
   "scripts": {
     "dev": "vite",
-    "start": "nodemon --watch 'server/**/*.ts' --exec 'ts-node' server/server.ts",
+    "start": "nodemon --watch 'server/**/*.ts' --exec 'ts-node' dist/server/server.js",
     "ts-dev": "ts-node-dev --respawn --transpile-only server/server.ts",
-    "ts-dev-both": "tsc server/server.ts && node server/server.cjs",
+    "ts-dev-both": "tsc && nodemon dist/server/server.js",
+    "ts-dev-hot": "concurrently \"tsc --watch\" \"nodemon dist/server/server.js\"",
     "build": "tsc && vite build",
+    "ts-build": "tsc",
     "test": "jest --coverage",
     "preview": "vite preview",
     "lint": "eslint './**/*.{ts,tsx,js,jsx}'"

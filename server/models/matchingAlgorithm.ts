@@ -1,4 +1,4 @@
-import { User, Org } from './types';
+import { User, Org } from './types.js';
 
 // -------------------------------------------User Logic-------------------------------------------------
 

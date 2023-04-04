@@ -1,8 +1,8 @@
-import { User, Org } from '../models/types';
+import { User, Org } from '../models/types.js';
 import {
   getUserTopChoices,
   getOrgTopChoices,
-} from '../models/matchingAlgorithm';
+} from '../models/matchingAlgorithm.js';
 
 describe('matching algorithm unit tests', () => {
   describe('getUserTopChoices', () => {

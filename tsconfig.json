@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": true,
@@ -9,14 +9,15 @@
     "allowSyntheticDefaultImports": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
-    "module": "CommonJS",
-    "moduleResolution": "Node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "sourceMap": true,
     "resolveJsonModule": true,
     "isolatedModules": false,
     // "noEmit": true,
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "outDir": "server/server.cjs"
+    "outDir": "dist"
   },
   "include": ["client/**/*", "server/**/*.ts", "node_modules/@types/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]

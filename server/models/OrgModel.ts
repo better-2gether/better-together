@@ -1,5 +1,5 @@
 import { Schema, Document, model } from 'mongoose';
-import { Org } from './types';
+import { Org } from './types.js';
 
 // declare a new interface for Event Model
 interface IOrgModel extends Org, Document {}
