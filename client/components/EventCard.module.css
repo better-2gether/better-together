@@ -1,0 +1,25 @@
+.container {
+  height: 250px;
+  width: 250px;
+  padding: 5px 8px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.dark-container {
+  composes: container;
+  background-color: #9893ef;
+  color: white;
+}
+
+.light-container {
+  composes: container;
+  background-color: white;
+  color: #444444;
+}
+
+.title {
+  font-size: 1.15rem;
+  font-weight: 500;
+
+}
