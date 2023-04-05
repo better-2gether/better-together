@@ -34,6 +34,7 @@ const Login = (props: LoginProps): JSX.Element => {
       if (data.org) setUser(data.org);
       if (data.user) setUser(data.user);
       setIsLoggedIn(true);
+      localStorage.setItem('isLoggedIn', 'true');
     } catch (err) {
       setLoginError(true);
     }

@@ -23,7 +23,9 @@ function PublicRoute({ isLoggedIn, children }) {
 function App() {
   const [user, setUser] = useState<Org | User | null>(sampleOrg);
   const [isUser, setIsUser] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(localStorage.getItem('isLoggedIn'));
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
+    localStorage.getItem('isLoggedIn') === 'true'
+  );
 
   const updateOrgEvents = (events: Event[]) => {
     if (!isUser) setUser({ ...user, events });
