@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
@@ -9,6 +9,18 @@ import AddOrgCauses from './pages/addOrgCauses';
 
 function App() {
 
+
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    fetch('/api/data')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(JSON.stringify(data));
+        setMessage(data.message);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
     <div className="App">
