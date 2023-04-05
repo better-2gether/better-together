@@ -4,15 +4,18 @@ import { User, Org } from './types.js';
 // -------------------------------------------User Logic-------------------------------------------------
 
 /**
- * @function getUserTopChoices - updates the eventRanks property on the user object
+ * @function getUserEventRanks- updates the eventRanks property on the user object
  * @param user - individual user
  * @param orgs - array of all orgs
  */
-export const getUserTopChoices = (user: User, orgs: Org[]): void => {
+export const getUserEventRanks = (
+  user: User,
+  orgs: Org[]
+): { event: Event; rank: number }[] => {
   // determine valid orgs
   const validOrgs = getValidOrgs(user, orgs);
   // rank events
-  rankEvents(user, validOrgs);
+  return rankEvents(user, validOrgs);
 };
 
 /**
@@ -40,13 +43,15 @@ const getValidOrgs = (user: User, orgs: Org[]): Org[] => {
  * @param user - individual user
  * @param validOrgs - array of valid organizations
  */
-const rankEvents = (user: User, validOrgs: Org[]): void => {
+const rankEvents = (user: User, validOrgs: Org[]) => {
   const userSkills = new Set(user.skills);
+  const eventRanks: { event: any; rank: number }[] = [];
   for (let org of validOrgs) {
     // determine how many causes match with user preferences
     const causes = org.causes;
     let causeCount = 0;
     for (let cause of causes) {
+      if (!(cause in user.preferences)) continue;
       causeCount += user.preferences[cause];
     }
     // determine how many skill matches the individual event
@@ -58,20 +63,21 @@ const rankEvents = (user: User, validOrgs: Org[]): void => {
         if (userSkills.has(need)) skillCount++;
       }
       const rank = skillCount * causeCount;
-      user.eventRanks.push({ event, rank });
+      eventRanks.push({ event, rank });
     }
   }
   // sort ranks
-  user.eventRanks.sort((a, b) => b.rank - a.rank);
+  eventRanks.sort((a, b) => b.rank - a.rank);
+  return eventRanks;
 };
 
 // ---------------------------------------------Org Logic-------------------------------------------------
 /**
- * @function getOrgTopChoices - determines users ranks per event
+ * @function getOrgUserRanks - determines users ranks per event
  * @param org - individual org
  * @param users - array of users
  */
-export const getOrgTopChoices = (org: Org, users: User[]): void => {
+export const getOrgUserRanks = (org: Org, users: User[]): void => {
   // determine valid users
   const validUsers = getUsers(org, users);
   // get ranks
@@ -98,13 +104,18 @@ const getUsers = (org: Org, users: User[]): User[] => {
   return validUsers;
 };
 
-// preference * # of skills
+/**
+ * @function rankUsers - ranks users by multiplying # of overlapping causes * # of overlapping skills
+ * @param org
+ * @param validUsers
+ */
 const rankUsers = (org: Org, validUsers: User[]): void => {
   for (let event of org.events) {
     const needs = new Set(event.needs);
     for (let user of validUsers) {
       let causeCount = 0;
       for (let cause of org.causes) {
+        if (!(cause in user.preferences)) continue;
         causeCount += user.preferences[cause];
       }
       let skillCount = 0;
