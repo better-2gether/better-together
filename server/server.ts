@@ -49,7 +49,7 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
 //test route
 app.get('/api/data', (req, res) => {
-  const data = { message: 'Hello from the backend prove it' };
+  const data = { message: 'Hello from the backend prove it to Zack' };
   res.status(200).json(data);
 });
 
