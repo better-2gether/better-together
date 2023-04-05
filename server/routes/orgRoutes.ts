@@ -1,22 +1,36 @@
-import express from "express";
-import orgController from "../controllers/orgController.js";
+import express from 'express';
+import orgController from '../controllers/orgController.js';
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/addEvent', orgController.addEvent, (req, res) => {
+router.post(
+  '/signup',
+  orgController.signUp,
+  //   orgController.getUserRanks,
+  (req, res) => {
+    res.status(200).json(res.locals.org);
+  }
+);
 
+router.post(
+  '/login',
+  orgController.login,
+  //   orgController.getUserRanks,
+  (req, res) => {
+    res.status(200).json(res.locals.org);
+  }
+);
+
+router.patch('/updateOrg', orgController.updateOrg, (req, res) => {
+  res.status(200).json(res.locals.org);
 });
 
-router.put('/updateCauses', orgController.updateCauses, (req, res) => {
-
+router.post('/createEvent', orgController.createEvent, (req, res) => {
+  res.status(200).json(res.locals.org);
 });
 
-router.put('/editEvent', orgController.editEvent, (req, res) => {
-
-});
-
-router.delete('/deleteEvent', orgController.deleteEvent, (req, res) => {
-
+router.patch('/editEvent', orgController.editEvent, (req, res) => {
+  res.status(200).json(res.locals.org);
 });
 
 export default router;

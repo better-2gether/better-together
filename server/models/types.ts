@@ -13,6 +13,7 @@ export interface Event {
   date: Date;
   needs: string[];
   userRanks: { user: User; rank: number }[];
+  [key: string]: any;
 }
 
 export interface Org {
@@ -22,4 +23,3 @@ export interface Org {
   causes: string[];
   events: Event[];
 }
-

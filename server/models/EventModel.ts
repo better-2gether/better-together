@@ -13,9 +13,8 @@ const eventSchema = new Schema<IEventModel>({
       user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true,
       },
-      rank: { type: Number, required: true },
+      rank: { type: Number },
     },
   ],
 });

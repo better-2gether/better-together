@@ -1,28 +1,138 @@
-import { Request, Response, NextFunction } from 'express';
+/* eslint-disable */
+import { OrgModel } from '../models/OrgModel.js';
+import { EventModel } from '../models/EventModel.js';
+import { UserModel } from '../models/UserModel.js';
+import { getOrgUserRanks } from '../models/matchingAlgorithm.js';
+import bcrypt from 'bcryptjs';
 
 const orgController: Record<string, any> = {};
 
-// login
-// handle auth here
-orgController.login = async (req, res, next) => {};
-
 // signup
 // handle auth here
-orgController.singUp = async (req, res, next) => {};
+orgController.signUp = async (req, res, next) => {
+  try {
+    const newOrg = new OrgModel({
+      ...req.body,
+    });
+    const savedNewOrg = await newOrg.save();
+    res.locals.org = savedNewOrg;
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+};
 
-// update causes
-orgController.updateCauses = async (req, res, next) => {};
+// login
+// handle auth here
+orgController.login = async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+    const org = await OrgModel.findOne({ username }).populate('events');
+    bcrypt.compare(password, org?.password, (error, isMatch) => {
+      if (error) {
+        return next(error);
+      } else if (!isMatch) {
+        res.status(401).json('Login failed');
+      } else {
+        res.locals.org = org;
+      }
+      return next();
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+// handles updating causes
+orgController.updateOrg = async (req, res, next) => {
+  try {
+    const { _id: orgID, ...updatedOrg } = req.body;
+    const result = await OrgModel.updateOne({ _id: orgID }, updatedOrg);
+    const org = await OrgModel.findById(orgID);
+    res.locals.org = org;
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+};
 
 // add event
-orgController.addEvent = async (req, res, next) => {};
+orgController.createEvent = async (req, res, next) => {
+  try {
+    const { _id: orgID, ...event } = req.body;
+    const newEvent = new EventModel({ ...event });
 
-// edit event
-orgController.editEvent = async (req, res, next) => {};
+    const savedNewEvent = await newEvent.save();
+    const updatedOrg = await OrgModel.findOneAndUpdate(
+      { _id: orgID },
+      { $push: { events: savedNewEvent._id } },
+      { new: true }
+    ).populate('events');
+
+    res.locals.event = savedNewEvent;
+    res.locals.org = updatedOrg;
+
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+};
+
+// edit event. NOT FULLY FUNCTIONING
+orgController.editEvent = async (req, res, next) => {
+  try {
+    const { orgID, eventID, ...updates } = req.body;
+
+    const updatedEvent = await EventModel.findOneAndUpdate(
+      { _id: eventID },
+      { $set: updates },
+      { new: true }
+    );
+    const updatedOrg = await OrgModel.findOneAndUpdate(
+      { _id: orgID, 'events._id': eventID },
+      { $set: { 'events.$': updatedEvent } },
+      { new: true }
+    );
+    res.locals.org = updatedOrg;
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+};
 
 // delete event
-orgController.deleteEvent = async (req, res, next) => {};
+orgController.deleteEvent = async (req, res, next) => {
+  try {
+    const { _id: eventID } = req.body;
+    const result = await EventModel.deleteOne({ _id: eventID });
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+};
 
 // delete org
-orgController.deleteOrg = async (req, res, next) => {};
+orgController.deleteOrg = async (req, res, next) => {
+  try {
+    const { _id: orgID } = req.body;
+    const result = await OrgModel.deleteOne({ _id: orgID });
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+};
+
+// ISNT WORKING YET
+orgController.getUserRanks = async (req, res, next) => {
+  try {
+    // get all users
+    const users = await UserModel.find();
+
+    getOrgUserRanks(res.locals.org, users);
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+};
 
 export default orgController;
