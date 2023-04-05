@@ -3,13 +3,23 @@ import orgController from '../controllers/orgController.js';
 
 const router = express.Router();
 
-router.post('/signup', orgController.signUp, (req, res) => {
-  res.status(200).json(res.locals.org);
-});
+router.post(
+  '/signup',
+  orgController.signUp,
+  //   orgController.getUserRanks,
+  (req, res) => {
+    res.status(200).json(res.locals.org);
+  }
+);
 
-router.post('/login', orgController.login, (req, res) => {
-  res.status(200).json(res.locals.org);
-});
+router.post(
+  '/login',
+  orgController.login,
+  //   orgController.getUserRanks,
+  (req, res) => {
+    res.status(200).json(res.locals.org);
+  }
+);
 
 router.patch('/updateOrg', orgController.updateOrg, (req, res) => {
   res.status(200).json(res.locals.org);
