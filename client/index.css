@@ -1,5 +1,5 @@
 :root {
-  --color-primary: rgba(147, 188, 239, 0.615);
+  --color-primary: rgba(170, 204, 246, 0.615);
   --color-secondary: rgb(68, 70, 215);
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -15,7 +15,9 @@
   -webkit-text-size-adjust: 100%;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -23,7 +25,9 @@
   margin: 0;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
 

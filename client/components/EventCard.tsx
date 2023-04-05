@@ -1,5 +1,5 @@
 import styles from './EventCard.module.css';
-import { Event } from '../types';
+import { Event } from '../types.js';
 
 interface EventCardProps {
   darkStyle: boolean;
@@ -18,6 +18,7 @@ const EventCard = (props: EventCardProps): JSX.Element => {
   return (
     <div className={darkStyle ? styles['dark-container'] : styles['light-container']}>
       <h4 className={styles.title}>{truncatedTitle}</h4>
+      <h6>{new Date(date).toDateString()}</h6>
     </div>
   );
 };
