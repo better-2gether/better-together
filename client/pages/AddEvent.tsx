@@ -52,6 +52,11 @@ const AddEvent = (props: AddEventProps): JSX.Element => {
       const data = await response.json();
       updateOrgEvents(data.events);
       setFormStatus('success');
+      // Reset the form.
+      setTitle('');
+      setDate(new Date().toDateString());
+      setNeed('');
+      setNeeds([]);
     } catch (err) {
       setFormStatus('failure');
     }
