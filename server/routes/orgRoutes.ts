@@ -17,7 +17,8 @@ router.post(
   orgController.login,
   //   orgController.getUserRanks,
   (req, res) => {
-    res.status(200).json(res.locals.org);
+    const org = res.locals.org;
+    res.status(200).json({ org, isUser: false });
   }
 );
 

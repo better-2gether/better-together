@@ -23,7 +23,9 @@ router.post(
   (req, res) => {
     const user = res.locals.user;
     user.eventRanks = res.locals.eventRanks;
-    res.status(200).json({ user, eventRanks: res.locals.eventRanks });
+    res
+      .status(200)
+      .json({ user, eventRanks: res.locals.eventRanks, isUser: true });
   }
 );
 
