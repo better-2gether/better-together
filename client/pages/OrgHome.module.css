@@ -3,19 +3,20 @@
   width: 100%;
   height: calc(100% - 45px);
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   margin: auto;
+  padding: 10px 0;
+  overflow: auto;
 }
 
 .event-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 15px;
-  padding: 10%;
-  width: 100%;
-  height: 100%;
+  padding: 15px;
 }
 
 .details-container {
@@ -25,12 +26,14 @@
   flex-direction: column;
   width: 100%;
   min-width: 300px;
+  padding: 5px;
+  gap: 5px;
 }
 
 
 @media (min-width: 768px) {
   .container {
-    flex-direction: row;
+    flex-direction: row-reverse;
     justify-content: center;
     align-items: flex-start;
     max-width: 1280px;
@@ -38,10 +41,10 @@
 
   .event-container {
     width: 75%;
+    height: 100%;
   }
 
   .details-container {
-    flex-direction: row;
     width: 25%;
     height: 100%;
   }

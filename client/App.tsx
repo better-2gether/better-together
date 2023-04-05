@@ -5,9 +5,9 @@ import './App.css';
 
 function App() {
 
-  const sampleEvents = [{eventId: '123', title: 'New Event', date: new Date(), needs: ['SQL', 'web design'], userRanks: []},
-    {eventId: '456', title: 'Another Event with a long title blah blah', date: new Date(), needs: ['SQL', 'web design'], userRanks: []},
-    {eventId: '476', title: 'Another Event with an even long title blah blah', date: new Date(), needs: ['SQL', 'web design'], userRanks: []}
+  const sampleEvents = [{eventId: '123', title: 'New Event', date: new Date(2023, 3, 7), needs: ['SQL', 'web design'], userRanks: []},
+    {eventId: '456', title: 'Another Event with a long title blah blah', date: new Date(2023, 3, 5), needs: ['SQL', 'web design'], userRanks: []},
+    {eventId: '476', title: 'Another Event with an even long title blah blah', date: new Date(2023, 3, 4), needs: ['SQL', 'web design'], userRanks: []}
   ];
   return (
     <div className="App">

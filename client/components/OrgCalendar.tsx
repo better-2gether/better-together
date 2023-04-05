@@ -1,11 +1,13 @@
-import { useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import styles from './OrgCalendar.module.css';
 
-const OrgCalendar = (): JSX.Element => {
-  const initialDays: Date[] = [];
-  const [days, setDays] = useState<Date[] | undefined>(initialDays);
+interface OrgCalendarProps {
+  days: Date[] | undefined;
+  setDays: (days: Date[] | undefined) => void;
+}
+
+const OrgCalendar = ({ days, setDays }: OrgCalendarProps): JSX.Element => {
 
   return (
     <div className={styles.container}>
