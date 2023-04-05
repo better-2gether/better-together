@@ -7,6 +7,10 @@ import AddEvent from './pages/AddEvent';
 import PageNotFound from './pages/PageNotFound';
 import type { Org, User, Event } from './types';
 import './App.css';
+import UserProfile from './pages/userProfile.js';
+import AddUserPreferences from './pages/addUserPreferences.js';
+import OrgProfile from './pages/orgProfile.js';
+import AddOrgCauses from './pages/addOrgCauses.js';
 
 function PrivateRoute({ user, children }) {
   return user ? children : <Navigate replace to='/login' />;
