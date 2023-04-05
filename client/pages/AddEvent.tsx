@@ -28,9 +28,27 @@ const AddEvent = (props: AddEventProps): JSX.Element => {
     'Legal Services',
   ];
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // send request
+    try {
+      const response = await fetch('/addEvent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'Application/JSON',
+        },
+        body: JSON.stringify({
+          orgId,
+          title,
+          date,
+          needs,
+        }),
+      });
+      if (!response.ok) throw Error;
+      const data = await response.json();
+      // res: array of events, success/fail
+      // show either Event added! or Error adding event
+      // set user events --> pass function through props
+    } catch (err) {}
   };
 
   const addNeed = () => {
