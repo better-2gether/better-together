@@ -13,7 +13,7 @@ const AddEvent = (props: AddEventProps): JSX.Element => {
   const { _id, updateOrgEvents } = props;
 
   const [title, setTitle] = useState<string>('');
-  const [date, setDate] = useState<string>(new Date().toDateString());
+  const [date, setDate] = useState<string>(new Date().toString());
   const [need, setNeed] = useState<string>('');
   const [needs, setNeeds] = useState<string[]>([]);
   const [formStatus, setFormStatus] = useState<'success' | 'failure' | ''>('');
@@ -33,10 +33,11 @@ const AddEvent = (props: AddEventProps): JSX.Element => {
     'Legal Services',
   ];
 
+  // BUG: The dates are being handled incorrectly--an event added in AddEvent will show up at at different date on the home page (likely because of time zones).
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/orgs/addEvent', {
+      const response = await fetch('/api/orgs/createEvent', {
         method: 'POST',
         headers: {
           'Content-Type': 'Application/JSON',
@@ -48,16 +49,17 @@ const AddEvent = (props: AddEventProps): JSX.Element => {
           needs,
         }),
       });
-      if (!response.ok) throw 'Unable to add event.';
       const data = await response.json();
+      if (!response.ok) throw 'Unable to add event.';
       updateOrgEvents(data.events);
       setFormStatus('success');
       // Reset the form.
       setTitle('');
-      setDate(new Date().toDateString());
+      setDate(new Date().toString());
       setNeed('');
       setNeeds([]);
     } catch (err) {
+      console.error(err);
       setFormStatus('failure');
     }
   };
@@ -130,10 +132,10 @@ const AddEvent = (props: AddEventProps): JSX.Element => {
             ))}
           </ul>
         </div>
+        <button type='submit' className={styles.btnAddEvent}>
+          Add Event
+        </button>
       </form>
-      <button type='submit' className={styles.btnAddEvent}>
-        Add Event
-      </button>
       {formStatus === 'success' && <div className={styles.formSuccess}>Event added!</div>}
       {formStatus === 'failure' && (
         <div className={styles.formFailure}>Error adding event. Please try again.</div>

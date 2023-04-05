@@ -4,11 +4,10 @@ import styles from './Login.module.css';
 interface LoginProps {
   setUser: (user: User | Org) => void;
   setIsUser: (isUser: boolean) => void;
-  setIsLoggedIn: (isLoggedIn: boolean) => void;
 }
 
 const Login = (props: LoginProps): JSX.Element => {
-  const { setUser, setIsUser, setIsLoggedIn } = props;
+  const { setUser, setIsUser } = props;
 
   const [userSelection, setUserSelection] = useState<boolean>(true);
   const [username, setUsername] = useState<string>('');
@@ -19,7 +18,7 @@ const Login = (props: LoginProps): JSX.Element => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const route = userSelection ? 'api/users/login' : 'api/orgs/login';
+      const route = userSelection ? '/api/users/login' : '/api/orgs/login';
       const response = await fetch(route, {
         method: 'POST',
         headers: {
@@ -27,15 +26,14 @@ const Login = (props: LoginProps): JSX.Element => {
         },
         body: JSON.stringify({ username, password }),
       });
-      if (!response.ok) throw 'Unable to log in.';
       const data = await response.json();
+      if (!response.ok) throw data;
       // Set user states.
       setIsUser(userSelection);
       if (data.org) setUser(data.org);
       if (data.user) setUser(data.user);
-      setIsLoggedIn(true);
-      localStorage.setItem('isLoggedIn', 'true');
     } catch (err) {
+      console.error(err);
       setLoginError(true);
     }
   };
@@ -90,11 +88,11 @@ const Login = (props: LoginProps): JSX.Element => {
             required
           />
         </div>
+        <button type='submit' className={styles.btnLogin}>
+          Login
+        </button>
       </form>
-      <button type='submit' className={styles.btnLogin}>
-        Login
-      </button>
-      {loginError && <div className={styles.formError}>Unable to log in.</div>}
+      {loginError && <div className={styles.formFailure}>Unable to log in.</div>}
     </div>
   );
 };

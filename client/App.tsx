@@ -12,20 +12,17 @@ import AddOrgCauses from './pages/addOrgCauses.js';
 import type { Org, User, Event } from './types';
 import './App.css';
 
-function PrivateRoute({ isLoggedIn, children }) {
-  return isLoggedIn ? children : <Navigate replace to='/login' />;
+function PrivateRoute({ user, children }) {
+  return user ? children : <Navigate replace to='/login' />;
 }
 
-function PublicRoute({ isLoggedIn, children }) {
-  return isLoggedIn ? <Navigate replace to='/' /> : children;
+function PublicRoute({ user, children }) {
+  return user ? <Navigate replace to='/' /> : children;
 }
 
 function App() {
-  const [user, setUser] = useState<Org | User | null>(sampleOrg);
-  const [isUser, setIsUser] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
-    localStorage.getItem('isLoggedIn') === 'true'
-  );
+  const [user, setUser] = useState<Org | User | null>(null);
+  const [isUser, setIsUser] = useState<boolean | null>(false);
 
   const updateOrgEvents = (events: Event[]) => {
     if (!isUser) setUser({ ...user, events });
@@ -39,24 +36,41 @@ function App() {
           <Route
             path='/login'
             element={
-              <PublicRoute isLoggedIn={isLoggedIn}>
-                <Login setUser={setUser} setIsUser={setIsUser} setIsLoggedIn={setIsLoggedIn} />
+              <PublicRoute user={user}>
+                <Login setUser={setUser} setIsUser={setIsUser} />
               </PublicRoute>
             }
           />
           <Route
             path='/'
             element={
-              <PrivateRoute isLoggedIn={isLoggedIn}>
-                {!isUser ? <OrgHome events={(user as Org).events} /> : <UserHome />}
+              <PrivateRoute user={user}>
+                {user && !isUser ? <OrgHome events={(user as Org).events} /> : null}
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/profile'
+            element={
+              <PrivateRoute user={user}>
+                {user && !isUser ? (
+                  <OrgProfile />
+                ) : (
+                  <UserProfile
+                  // fName={(user as User).firstName}
+                  // lName={(user as User).lastName}
+                  // userName={user.username}
+                  // password={user.password}
+                  />
+                )}
               </PrivateRoute>
             }
           />
           <Route
             path='/event'
             element={
-              <PrivateRoute isLoggedIn={isLoggedIn}>
-                {!isUser && <AddEvent _id={user._id} updateOrgEvents={updateOrgEvents} />}
+              <PrivateRoute user={user}>
+                {user && !isUser && <AddEvent _id={user._id} updateOrgEvents={updateOrgEvents} />}
               </PrivateRoute>
             }
           />
@@ -68,34 +82,3 @@ function App() {
 }
 
 export default App;
-
-const sampleOrg: Org = {
-  _id: '1234',
-  orgName: 'Example Org',
-  username: 'blahOrg',
-  password: '12343',
-  causes: ['Poverty', 'Education'],
-  events: [
-    {
-      _id: '52343',
-      title: 'New Event',
-      date: new Date(2023, 3, 7),
-      needs: ['SQL', 'web design'],
-      userRanks: [],
-    },
-    {
-      _id: '452543',
-      title: 'Another Event with a long title blah blah',
-      date: new Date(2023, 3, 5),
-      needs: ['SQL', 'web design'],
-      userRanks: [],
-    },
-    {
-      _id: '351523',
-      title: 'Another Event with an even long title blah blah',
-      date: new Date(2023, 3, 4),
-      needs: ['SQL', 'web design'],
-      userRanks: [],
-    },
-  ],
-};

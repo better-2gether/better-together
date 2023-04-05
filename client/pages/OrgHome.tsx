@@ -14,12 +14,16 @@ const OrgHome = (props: OrgHomeProps) => {
   const [days, setDays] = useState<Date[] | undefined>([]);
   const [selectedEvents, setSelectedEvents] = useState<Event[]>(events);
 
+  // BUG: The dates are being handled incorrectly--an event added in AddEvent will show up at at different date on the home page (likely because of time zones).
   useEffect((): void => {
+    console.log(days);
     if (days && days.length === 0) setSelectedEvents(events);
     else
       setSelectedEvents(
         events.filter((event: Event) =>
-          days?.map((day) => day.toDateString()).includes(event.date.toDateString())
+          days
+            ?.map((day) => new Date(day).toLocaleDateString())
+            .includes(new Date(event.date).toLocaleDateString())
         )
       );
   }, [days]);
