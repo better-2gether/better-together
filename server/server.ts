@@ -17,7 +17,6 @@ const port = 3000;
 //import routers
 import userRouter from './routes/userRoutes.js';
 import orgRouter from './routes/orgRoutes.js';
-import dataRouter from './routes/dataRoutes.js';
 
 //establish connection to database
 const URI =
@@ -41,7 +40,6 @@ app.use(express.static(path.join(__dirname, '../build')));
 // app.use('/api', apiRouter);
 app.use('/api/users', userRouter);
 app.use('/api/orgs', orgRouter);
-app.use('/api/data', dataRouter);
 
 // route handler to respond with main app
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
