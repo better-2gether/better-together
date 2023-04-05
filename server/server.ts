@@ -46,16 +46,10 @@ app.use('/api/data', dataRouter);
 // route handler to respond with main app
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
-//test route
-app.get('/api/data', (req, res) => {
-  const data = { message: 'Hello from the backend prove it to Zack' };
-  res.status(200).json(data);
-});
-
-// Handle all other requests with index.html, which will contain
-// a script tag to your application's JavaScript file(s).
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../index.html'));
+// unkown route
+app.use((err, req, res, next) => {
+  console.log(err.log);
+  res.status(404).send(err.message);
 });
 
 app.listen(port, () => {
