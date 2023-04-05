@@ -1,11 +1,22 @@
 import styles from './Navbar.module.css';
 import { NavLink } from 'react-router-dom';
+import type { Org, User } from '../types';
 
-const Navbar = (): JSX.Element => {
+interface NavbarProps {
+  userType: 'organization' | 'user';
+  user: Org | User;
+}
+
+const Navbar = ( props: NavbarProps ): JSX.Element => {
+  const { userType, user } = props;
+
   return (
     <div className={styles.nav}>
-      <nav className={styles['nav-content']}>
-        <NavLink className={styles['logo-link']} to='/'>Better Together</NavLink>
+      <nav className={styles.navContent}>
+        <NavLink className={styles.logoLink} to='/'>Better Together</NavLink>
+        <ul className={styles.navList}>
+          {userType === 'organization' && <li><NavLink className={styles.btnEvent} to='/event'>Add Event</NavLink></li>}
+        </ul>
       </nav>
     </div>
   );

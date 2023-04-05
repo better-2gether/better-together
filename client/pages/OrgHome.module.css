@@ -11,7 +11,7 @@
   overflow: auto;
 }
 
-.event-container {
+.eventContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -19,7 +19,7 @@
   padding: 15px;
 }
 
-.details-container {
+.detailsContainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,12 +39,12 @@
     max-width: 1280px;
   }
 
-  .event-container {
+  .eventContainer {
     width: 75%;
     height: 100%;
   }
 
-  .details-container {
+  .detailsContainer {
     width: 25%;
     height: 100%;
   }

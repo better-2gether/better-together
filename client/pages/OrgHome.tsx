@@ -4,10 +4,17 @@ import EventCard from '../components/EventCard';
 import { Org, Event } from '../types';
 import styles from './OrgHome.module.css';
 
-const OrgHome = ( { orgId, orgName, username, causes, events }: Org ) => {
+interface OrgHomeProps {
+  orgId: any;
+  orgName: string;
+  username: string;
+  causes: string[];
+  events: Event[];
+}
+
+const OrgHome = ( { orgId, orgName, username, causes, events }: OrgHomeProps ) => {
   const [days, setDays] = useState<Date[] | undefined>([]);
   const [selectedEvents, setSelectedEvents] = useState<Event[]>(events);
-  const [showModalAddEvent, setShowModalAddEvent] = useState<boolean>(false);
 
   useEffect((): void => {
     if (days && days.length === 0) setSelectedEvents(events);
@@ -16,14 +23,14 @@ const OrgHome = ( { orgId, orgName, username, causes, events }: Org ) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles['details-container']}>
+      <div className={styles.detailsContainer}>
         <OrgCalendar
           days={days}
           setDays={setDays}
         />
       </div>
       
-      <div className={styles['event-container']}>
+      <div className={styles.eventContainer}>
         {selectedEvents && selectedEvents.map((event: Event, i: number): JSX.Element => {
           return (
             <EventCard

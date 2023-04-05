@@ -8,8 +8,10 @@
   box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.137);
 }
 
-.nav-content {
+.navContent {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: 100%;
   width: 100%;
   margin: auto;
@@ -23,8 +25,16 @@
   color: inherit;
 }
 
-.logo-link {
+.logoLink {
   composes: link;
   font-size: 1.5rem;
   font-weight: 600;
+}
+
+.navList {
+  list-style: none;
+}
+
+.btnEvent {
+  composes: link;
 }
