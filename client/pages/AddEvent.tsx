@@ -131,7 +131,9 @@ const AddEvent = (props: AddEventProps): JSX.Element => {
           </ul>
         </div>
       </form>
-      <button type='submit'>Add Event</button>
+      <button type='submit' className={styles.btnAddEvent}>
+        Add Event
+      </button>
       {formStatus === 'success' && <div className={styles.formSuccess}>Event added!</div>}
       {formStatus === 'failure' && (
         <div className={styles.formFailure}>Error adding event. Please try again.</div>

@@ -24,9 +24,9 @@ const Login = (props: LoginProps): JSX.Element => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Login</h1>
-      <form>
+      <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
         <fieldset>
           <legend>Select account type:</legend>
           <div className={styles.formRow}>
@@ -53,7 +53,30 @@ const Login = (props: LoginProps): JSX.Element => {
             </div>
           </div>
         </fieldset>
+        <div className={styles.formRow}>
+          <label htmlFor='username'>Username</label>
+          <input
+            type='text'
+            name='username'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+        <div className={styles.formRow}>
+          <label htmlFor='password'>Password</label>
+          <input
+            type='password'
+            name='password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
       </form>
+      <button type='submit' className={styles.btnLogin}>
+        Login
+      </button>
     </div>
   );
 };

@@ -1,9 +1,32 @@
+@import './commonStyles.module.css';
+
+.container {
+  composes: mainContainer;
+}
+
+.form {
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.form fieldset {
+  border: 0;
+}
+
 .formRow {
   display: flex;
   gap: 10px;
   justify-content: center;
   align-items: flex-start;
   margin: 10px 0;
+}
+
+.formRow label {
+  width: 50%;
+}
+
+.formRow input {
+  width: 50%;
 }
 
 .formRadioOption label {
@@ -21,4 +44,8 @@
 .formRadioOption input[type='radio']:checked + label {
   background-color: var(--color-secondary);
   color: white;
+}
+
+.btnLogin {
+  padding: 7px 11px;
 }
