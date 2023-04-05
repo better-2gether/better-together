@@ -11,13 +11,7 @@ const userSchema = new Schema<IUserModel>({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   skills: [{ type: String }],
-  preferences: { type: Map, of: Number, required: true },
-  eventRanks: [
-    {
-      event: { type: Schema.Types.ObjectId, ref: 'Event' },
-      rank: { type: Number },
-    },
-  ],
+  preferences: { type: Object, required: true, minimize: false },
 });
 
 // bcrypt pre middleware
