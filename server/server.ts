@@ -21,7 +21,7 @@ import dataRouter from './routes/dataRoutes.js';
 
 //establish connection to database
 const URI =
-'mongodb+srv://Elastic9034:hyqZd4uUjXzVqEck@cluster0.bjfx208.mongodb.net/?retryWrites=true&w=majority';
+  'mongodb+srv://admin:bettertogether@cluster0.iwftg38.mongodb.net/?retryWrites=true&w=majority';
 
 async function connect() {
   try {
@@ -42,7 +42,6 @@ app.use(express.static(path.join(__dirname, '../build')));
 app.use('/api/users', userRouter);
 app.use('/api/orgs', orgRouter);
 app.use('/api/data', dataRouter);
-
 
 // route handler to respond with main app
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
