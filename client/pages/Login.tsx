@@ -13,13 +13,29 @@ const Login = (props: LoginProps): JSX.Element => {
   const [userSelection, setUserSelection] = useState<boolean>(true);
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [loginError, setLoginError] = useState<boolean>(false);
 
+  // TODO: Add form validation.
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      // login
+      const route = userSelection ? 'api/users/login' : 'api/orgs/login';
+      const response = await fetch(route, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'Application/JSON',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+      if (!response.ok) throw 'Unable to log in.';
+      const data = await response.json();
+      // Set user states.
+      setIsUser(userSelection);
+      if (data.org) setUser(data.org);
+      if (data.user) setUser(data.user);
+      setIsLoggedIn(true);
     } catch (err) {
-      // handle error
+      setLoginError(true);
     }
   };
 
@@ -36,7 +52,7 @@ const Login = (props: LoginProps): JSX.Element => {
                 type='radio'
                 name='type'
                 value='user'
-                onChange={(e) => setUserSelection(true)}
+                onChange={() => setUserSelection(true)}
                 checked
               />
               <label htmlFor='typeUser'>Volunteer</label>
@@ -77,6 +93,7 @@ const Login = (props: LoginProps): JSX.Element => {
       <button type='submit' className={styles.btnLogin}>
         Login
       </button>
+      {loginError && <div className={styles.formError}>Unable to log in.</div>}
     </div>
   );
 };

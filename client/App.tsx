@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Login from './pages/Login';
-import OrgHome from './pages/OrgHome';
-import AddEvent from './pages/AddEvent';
-import PageNotFound from './pages/PageNotFound';
+import Navbar from './components/Navbar.js';
+import Login from './pages/Login.js';
+import OrgHome from './pages/OrgHome.js';
+import AddEvent from './pages/AddEvent.js';
+import PageNotFound from './pages/PageNotFound.js';
 import UserProfile from './pages/userProfile.js';
 import AddUserPreferences from './pages/addUserPreferences.js';
 import OrgProfile from './pages/orgProfile.js';

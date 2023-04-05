@@ -27,6 +27,7 @@
 
 .formRow input {
   width: 50%;
+  margin: 0px 10px;
 }
 
 .formRadioOption label {
@@ -48,4 +49,9 @@
 
 .btnLogin {
   padding: 7px 11px;
+}
+
+.formFailure {
+  margin: 10px;
+  color: red;
 }

@@ -1,5 +1,5 @@
 import styles from './EventCard.module.css';
-import { Event } from '../types';
+import { Event } from '../types.js';
 
 interface EventCardProps {
   darkStyle: boolean;

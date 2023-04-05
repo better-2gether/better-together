@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import OrgCalendar from '../components/OrgCalendar';
-import EventCard from '../components/EventCard';
-import { Event } from '../types';
+import OrgCalendar from '../components/OrgCalendar.js';
+import EventCard from '../components/EventCard.js';
+import { Event } from '../types.js';
 import styles from './OrgHome.module.css';
 
 interface OrgHomeProps {

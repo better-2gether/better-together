@@ -1,6 +1,6 @@
 import styles from './Navbar.module.css';
 import { NavLink } from 'react-router-dom';
-import type { Org, User } from '../types';
+import type { Org, User } from '../types.js';
 
 interface NavbarProps {
   isUser: boolean;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { ObjectId } from 'mongodb';
-import type { Event } from '../types';
+import type { Event } from '../types.js';
 import styles from './AddEvent.module.css';
 
 // TODO: add form validation to prevent submit when form not completely filled out
@@ -48,7 +48,7 @@ const AddEvent = (props: AddEventProps): JSX.Element => {
           needs,
         }),
       });
-      if (!response.ok) throw Error;
+      if (!response.ok) throw 'Unable to add event.';
       const data = await response.json();
       updateOrgEvents(data.events);
       setFormStatus('success');
