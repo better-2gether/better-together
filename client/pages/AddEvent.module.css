@@ -1,16 +1,9 @@
+@import './commonStyles.module.css';
+
 .container {
-  background-color: var(--color-primary);
-  width: 100%;
-  height: calc(100% - 45px);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  margin: auto;
-  padding: 10px 0;
-  overflow: auto;
-  max-width: 1280px;
+  composes: mainContainer;
 }
+
 .form {
   padding: 10px;
   margin-bottom: 20px;

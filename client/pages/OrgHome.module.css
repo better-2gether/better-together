@@ -1,15 +1,7 @@
+@import './commonStyles.module.css';
+
 .container {
-  background-color: var(--color-primary);
-  width: 100%;
-  height: calc(100% - 45px);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  margin: auto;
-  padding: 10px 0;
-  overflow: auto;
-  max-width: 1280px;
+  composes: mainContainer;
 }
 
 .eventContainer {
@@ -30,7 +22,6 @@
   padding: 5px;
   gap: 5px;
 }
-
 
 @media (min-width: 768px) {
   .container {

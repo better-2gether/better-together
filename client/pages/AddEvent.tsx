@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import styles from './AddEvent.module.css';
 import type { ObjectId } from 'mongodb';
+import styles from './AddEvent.module.css';
 
 interface AddEventProps {
   _id: ObjectId;
