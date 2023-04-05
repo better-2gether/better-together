@@ -78,7 +78,7 @@ orgController.createEvent = async (req, res, next) => {
   }
 };
 
-// edit event. NOT FULLY FUNCTIONING
+// edit event
 orgController.editEvent = async (req, res, next) => {
   try {
     const { orgID, eventID, ...updates } = req.body;
@@ -88,12 +88,14 @@ orgController.editEvent = async (req, res, next) => {
       { $set: updates },
       { new: true }
     );
-    const updatedOrg = await OrgModel.findOneAndUpdate(
-      { _id: orgID, 'events._id': eventID },
-      { $set: { 'events.$': updatedEvent } },
-      { new: true }
+
+    await OrgModel.findOneAndUpdate(
+      { _id: orgID, events: { $elemMatch: { _id: eventID } } },
+      { $set: { 'events.$': updatedEvent } }
     );
-    res.locals.org = updatedOrg;
+    const org = await OrgModel.findOne({ _id: orgID }).populate('events');
+
+    res.locals.org = org;
     return next();
   } catch (error) {
     return next(error);
@@ -122,12 +124,10 @@ orgController.deleteOrg = async (req, res, next) => {
   }
 };
 
-// ISNT WORKING YET
 orgController.getUserRanks = async (req, res, next) => {
   try {
     // get all users
     const users = await UserModel.find();
-
     getOrgUserRanks(res.locals.org, users);
     return next();
   } catch (error) {
