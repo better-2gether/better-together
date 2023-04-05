@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import AddCauses from '../components/addCauses';
 
 function AddOrgCauses({ currCauses }) {
+
+    // currCauses and userid will be passed in from other components
   const allCauses = ['cause1', 'cause2', 'cause3', 'cause4', 'cause5'];
 
   const initialCauses = allCauses.reduce((acc, cause) => {
