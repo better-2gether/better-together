@@ -4,45 +4,34 @@ import EventCard from '../components/EventCard';
 import { Org, Event } from '../types';
 import styles from './OrgHome.module.css';
 
-interface OrgHomeProps {
-  orgId: any;
-  orgName: string;
-  username: string;
-  causes: string[];
-  events: Event[];
-}
-
-const OrgHome = ( { orgId, orgName, username, causes, events }: OrgHomeProps ) => {
+const OrgHome = ({ events }) => {
   const [days, setDays] = useState<Date[] | undefined>([]);
   const [selectedEvents, setSelectedEvents] = useState<Event[]>(events);
 
   useEffect((): void => {
     if (days && days.length === 0) setSelectedEvents(events);
-    else setSelectedEvents(events.filter((event) => days?.map((day) => day.toDateString()).includes(event.date.toDateString())));
+    else
+      setSelectedEvents(
+        events.filter((event: Event) =>
+          days?.map((day) => day.toDateString()).includes(event.date.toDateString())
+        )
+      );
   }, [days]);
 
   return (
     <div className={styles.container}>
       <div className={styles.detailsContainer}>
-        <OrgCalendar
-          days={days}
-          setDays={setDays}
-        />
+        <OrgCalendar days={days} setDays={setDays} />
       </div>
-      
+
       <div className={styles.eventContainer}>
-        {selectedEvents && selectedEvents.map((event: Event, i: number): JSX.Element => {
-          return (
-            <EventCard
-              key={event.eventId}
-              event={event}
-              darkStyle={i % 2 === 0}
-            />
-          );
-        })}
+        {selectedEvents &&
+          selectedEvents.map((event: Event, i: number): JSX.Element => {
+            return <EventCard key={event.eventId} event={event} darkStyle={i % 2 === 0} />;
+          })}
       </div>
     </div>
   );
-}
+};
 
 export default OrgHome;

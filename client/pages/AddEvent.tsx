@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import styles from './AddEvent.module.css';
+import type { Org } from '../types';
 
-const AddEvent = (): JSX.Element => {
+interface AddEventProps {
+  orgId: string;
+}
+
+const AddEvent = (props: AddEventProps): JSX.Element => {
+  const { orgId } = props;
+
   const [title, setTitle] = useState<string>('');
   const [date, setDate] = useState<string>(new Date().toDateString());
   const [need, setNeed] = useState<string>('');
