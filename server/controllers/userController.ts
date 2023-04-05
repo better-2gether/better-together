@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { UserModel } from '../models/UserModel.js';
 import bcrypt from 'bcryptjs';
 
@@ -7,24 +8,8 @@ const userController: Record<string, any> = {};
 // handle auth here
 userController.signUp = async (req, res, next) => {
   try {
-    console.log(req.body);
-    const {
-      firstName,
-      lastName,
-      username,
-      password,
-      skills,
-      preferences,
-      eventRanks,
-    } = req.body;
     const newUser = new UserModel({
-      firstName,
-      lastName,
-      username,
-      password,
-      skills,
-      preferences,
-      eventRanks,
+      ...req.body,
     });
     const savedNewUser = await newUser.save();
     res.locals.user = savedNewUser;
@@ -38,17 +23,14 @@ userController.signUp = async (req, res, next) => {
 // handle auth here
 userController.login = async (req, res, next) => {
   try {
-    console.log('Login req body: ', req.body);
     const { username, password } = req.body;
     const user = await UserModel.findOne({ username });
-    console.log(user);
     bcrypt.compare(password, user?.password, (error, isMatch) => {
       if (error) {
         return next(error);
       } else if (!isMatch) {
         res.status(401).json('Login failed');
       } else {
-        console.log('login success');
         res.locals.user = user;
       }
       return next();
@@ -59,9 +41,27 @@ userController.login = async (req, res, next) => {
 };
 
 // update preferences
-userController.updateUser = async (req, res, next) => {};
+userController.updateUser = async (req, res, next) => {
+  try {
+    const { _id: userID, ...updatedUser } = req.body;
+    const result = await UserModel.updateOne({ _id: userID }, updatedUser);
+    const user = await UserModel.findById(userID);
+    res.locals.user = user;
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+};
 
 // delete user
-userController.deleteUser = async (req, res, next) => {};
+userController.deleteUser = async (req, res, next) => {
+  try {
+    const { _id: userID } = req.body;
+    const result = await UserModel.deleteOne({ _id: userID });
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+};
 
 export default userController;
