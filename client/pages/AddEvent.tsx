@@ -36,7 +36,7 @@ const AddEvent = (props: AddEventProps): JSX.Element => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch('/addEvent', {
+      const response = await fetch('/api/orgs/addEvent', {
         method: 'POST',
         headers: {
           'Content-Type': 'Application/JSON',
