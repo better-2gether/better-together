@@ -1,10 +1,16 @@
 import { useState, useEffect } from 'react';
 import OrgCalendar from '../components/OrgCalendar';
 import EventCard from '../components/EventCard';
-import { Org, Event } from '../types';
+import { Event } from '../types';
 import styles from './OrgHome.module.css';
 
-const OrgHome = ({ events }) => {
+interface OrgHomeProps {
+  events: Event[];
+}
+
+const OrgHome = (props: OrgHomeProps) => {
+  const { events } = props;
+
   const [days, setDays] = useState<Date[] | undefined>([]);
   const [selectedEvents, setSelectedEvents] = useState<Event[]>(events);
 

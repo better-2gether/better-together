@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styles from './AddEvent.module.css';
-import type { Org } from '../types';
 
 interface AddEventProps {
   orgId: string;
