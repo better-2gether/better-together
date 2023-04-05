@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import OrgHome from './pages/OrgHome';
@@ -9,6 +9,18 @@ import './App.css';
 function App() {
   const [user, setUser] = useState(sampleOrg);
   const [isUser, setIsUser] = useState(false);
+
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    fetch('/api/data')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(JSON.stringify(data));
+        setMessage(data.message);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
     <div className='App'>
