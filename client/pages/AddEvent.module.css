@@ -12,40 +12,32 @@
   max-width: 1280px;
 }
 
-.eventContainer {
+.formRow {
   display: flex;
-  flex-wrap: wrap;
+  gap: 10px;
   justify-content: center;
-  gap: 15px;
-  padding: 15px;
+  align-items: flex-start;
 }
 
-.detailsContainer {
+.formRow label {
+  width: 50%;
+}
+
+.formRow input {
+  width: 50%;
+}
+
+.needs {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  width: 100%;
-  min-width: 300px;
-  padding: 5px;
-  gap: 5px;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-
-@media (min-width: 768px) {
-  .container {
-    flex-direction: row-reverse;
+@media (min-width: 600px) {
+  .needs {
+    flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-  }
-
-  .eventContainer {
-    width: 75%;
-    height: 100%;
-  }
-
-  .detailsContainer {
-    width: 25%;
-    height: 100%;
   }
 }

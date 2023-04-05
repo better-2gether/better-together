@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import OrgHome from './pages/OrgHome';
+import AddEvent from './pages/AddEvent';
 import './App.css';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           <Route path='/' element={<OrgHome orgId={sampleOrg.orgId} orgName={sampleOrg.orgName} username={sampleOrg.username} causes={sampleOrg.causes} events={sampleOrg.events} />} />
           {/* <Route path='*' element={<PageNotFound />} /> */}
+          <Route path='/event' element={<AddEvent />} />
         </Routes>
       </BrowserRouter>
     </div>
