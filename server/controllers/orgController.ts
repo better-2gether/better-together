@@ -1,21 +1,16 @@
+/* eslint-disable */
 import { OrgModel } from '../models/OrgModel.js';
-const orgController: Record<string, any> = {};
+import { EventModel } from '../models/EventModel.js';
+import bcrypt from 'bcryptjs';
 
-// login
-// handle auth here
-orgController.login = async (req, res, next) => {};
+const orgController: Record<string, any> = {};
 
 // signup
 // handle auth here
 orgController.signUp = async (req, res, next) => {
   try {
-    const { orgName, username, password, causes, events } = req.body;
     const newOrg = new OrgModel({
-      orgName,
-      username,
-      password,
-      causes,
-      events,
+      ...req.body,
     });
     const savedNewOrg = await newOrg.save();
     res.locals.org = savedNewOrg;
@@ -25,19 +20,104 @@ orgController.signUp = async (req, res, next) => {
   }
 };
 
+// login
+// handle auth here
+orgController.login = async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+    const org = await OrgModel.findOne({ username });
+    bcrypt.compare(password, org?.password, (error, isMatch) => {
+      if (error) {
+        return next(error);
+      } else if (!isMatch) {
+        res.status(401).json('Login failed');
+      } else {
+        res.locals.org = org;
+      }
+      return next();
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
 // handles updating causes
-orgController.updateOrg = async (req, res, next) => {};
+orgController.updateOrg = async (req, res, next) => {
+  try {
+    const { _id: orgID, ...updatedOrg } = req.body;
+    const result = await OrgModel.updateOne({ _id: orgID }, updatedOrg);
+    const org = await OrgModel.findById(orgID);
+    res.locals.org = org;
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+};
 
 // add event
-orgController.addEvent = async (req, res, next) => {};
+orgController.createEvent = async (req, res, next) => {
+  try {
+    const { _id: orgID, ...event } = req.body;
+    const newEvent = new EventModel({ ...event });
+
+    const savedNewEvent = await newEvent.save();
+    const updatedOrg = await OrgModel.findOneAndUpdate(
+      { _id: orgID },
+      { $push: { events: savedNewEvent._id } },
+      { new: true }
+    ).populate('events');
+
+    res.locals.event = savedNewEvent;
+    res.locals.org = updatedOrg;
+
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+};
 
 // edit event
-orgController.editEvent = async (req, res, next) => {};
+orgController.editEvent = async (req, res, next) => {
+  try {
+    const { orgID, eventID, ...updates } = req.body;
+
+    const updatedEvent = await EventModel.findOneAndUpdate(
+      { _id: eventID },
+      { $set: updates },
+      { new: true }
+    );
+    const updatedOrg = await OrgModel.findOneAndUpdate(
+      { _id: orgID, 'events._id': eventID },
+      { $set: { 'events.$': updatedEvent } },
+      { new: true }
+    );
+    res.locals.org = updatedOrg;
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+};
 
 // delete event
-orgController.deleteEvent = async (req, res, next) => {};
+orgController.deleteEvent = async (req, res, next) => {
+  try {
+    const { _id: eventID } = req.body;
+    const result = await EventModel.deleteOne({ _id: eventID });
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+};
 
 // delete org
-orgController.deleteOrg = async (req, res, next) => {};
+orgController.deleteOrg = async (req, res, next) => {
+  try {
+    const { _id: orgID } = req.body;
+    const result = await OrgModel.deleteOne({ _id: orgID });
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+};
 
 export default orgController;
