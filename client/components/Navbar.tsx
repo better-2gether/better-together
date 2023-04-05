@@ -19,11 +19,16 @@ const Navbar = (props: NavbarProps): JSX.Element => {
         <ul className={styles.navList}>
           {!isUser && (
             <li>
-              <NavLink className={styles.btnEvent} to='/event'>
+              <NavLink className={styles.link} to='/event'>
                 Add Event
               </NavLink>
             </li>
           )}
+          <li>
+            <NavLink className={styles.link} to='/profile'>
+              Profile
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </div>
