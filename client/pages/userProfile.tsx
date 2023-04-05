@@ -2,26 +2,30 @@ import React from 'react'
 import Preferences from '../components/preferences';
 import Skills from '../components/skills';
 
-function UserProfile(props) {
-  const name = props.name;
-  const userName = props.userName;
-  const password = props.password;
+
+function UserProfile() {
+  // user info will be passed in from the homepage when redirected to this page
+  const fName = fName;
+  const lName = lName;
+  const userName = userName;
+  const password = password;
+  const edit = () => {
+    // route to the addUserPreferences page using react router
+  }
   return (
     <div>
-      <div>userProfile</div>
-      <div>Name: {name}</div>
+      <h1>UserProfile</h1>
+      <div>First Name: {fName}</div>
+      <div>Last Name: {lName}</div>
       <div>UserName: {userName}</div>
       <div>Password: {password}</div>
       <Preferences
-        preferences={{
-          cause1: "prefer",
-          cause2: "avoid",
-          cause3: "prefer"
-        }}
+        preferences={preferences}
       />
       <Skills
-        skills={["programmer", "baker", "writer"]}
+        skills={skills}
       />
+      <button onClick={edit}>Edit</button>
     </div>
   )
 }

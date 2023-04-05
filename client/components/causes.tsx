@@ -1,18 +1,22 @@
 import React from 'react';
-import '../css/Preferences.css';
 
-const Preferences = ({ preferences }) => {
-  const preferenceList = Object.entries(preferences);
+const Causes = ({ causes }) => {
+  const allCauses = ['cause1', 'cause2', 'cause3', 'cause4', 'cause5'];
+  
+  const causePreferences = allCauses.reduce((acc, cause) => {
+    acc[cause] = causes.includes(cause) ? 'prefer' : 'avoid';
+    return acc;
+  }, {});
+
+  const causeList = Object.entries(causePreferences);
 
   return (
     <div className="preferences">
-      <h2>Preferences</h2>
+      <h2>Causes</h2>
       <div className="header">
         <div />
-        <span>Prefer</span>
-        <span>Avoid</span>
       </div>
-      {preferenceList.map(([key, value], index) => (
+      {causeList.map(([key, value], index) => (
         <div key={index} className="preference-item">
           <div className="options">
             <input
@@ -24,15 +28,6 @@ const Preferences = ({ preferences }) => {
               checked={value === 'prefer'}
             />
             <label htmlFor={`prefer-${index}`} />
-            <input
-              type="radio"
-              id={`avoid-${index}`}
-              name={`selection-${index}`}
-              value="avoid"
-              readOnly={true}
-              checked={value === 'avoid'}
-            />
-            <label htmlFor={`avoid-${index}`} />
           </div>
           <span>{key}</span>
         </div>
@@ -41,6 +36,4 @@ const Preferences = ({ preferences }) => {
   );
 };
 
-export default Preferences;
-
-
+export default Causes;
