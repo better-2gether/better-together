@@ -1,6 +1,8 @@
 /* eslint-disable */
 import { OrgModel } from '../models/OrgModel.js';
 import { EventModel } from '../models/EventModel.js';
+import { UserModel } from '../models/UserModel.js';
+import { getOrgUserRanks } from '../models/matchingAlgorithm.js';
 import bcrypt from 'bcryptjs';
 
 const orgController: Record<string, any> = {};
@@ -25,7 +27,7 @@ orgController.signUp = async (req, res, next) => {
 orgController.login = async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    const org = await OrgModel.findOne({ username });
+    const org = await OrgModel.findOne({ username }).populate('events');
     bcrypt.compare(password, org?.password, (error, isMatch) => {
       if (error) {
         return next(error);
@@ -76,7 +78,7 @@ orgController.createEvent = async (req, res, next) => {
   }
 };
 
-// edit event
+// edit event. NOT FULLY FUNCTIONING
 orgController.editEvent = async (req, res, next) => {
   try {
     const { orgID, eventID, ...updates } = req.body;
@@ -114,6 +116,19 @@ orgController.deleteOrg = async (req, res, next) => {
   try {
     const { _id: orgID } = req.body;
     const result = await OrgModel.deleteOne({ _id: orgID });
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+};
+
+// ISNT WORKING YET
+orgController.getUserRanks = async (req, res, next) => {
+  try {
+    // get all users
+    const users = await UserModel.find();
+
+    getOrgUserRanks(res.locals.org, users);
     return next();
   } catch (error) {
     return next(error);
