@@ -5,24 +5,25 @@ import Login from './pages/Login';
 import OrgHome from './pages/OrgHome';
 import AddEvent from './pages/AddEvent';
 import PageNotFound from './pages/PageNotFound';
-import type { Org, User, Event } from './types';
-import './App.css';
 import UserProfile from './pages/userProfile.js';
 import AddUserPreferences from './pages/addUserPreferences.js';
 import OrgProfile from './pages/orgProfile.js';
 import AddOrgCauses from './pages/addOrgCauses.js';
+import type { Org, User, Event } from './types';
+import './App.css';
 
-function PrivateRoute({ user, children }) {
-  return user ? children : <Navigate replace to='/login' />;
+function PrivateRoute({ isLoggedIn, children }) {
+  return isLoggedIn ? children : <Navigate replace to='/login' />;
 }
 
-function PublicRoute({ user, children }) {
-  return user ? <Navigate replace to='/' /> : children;
+function PublicRoute({ isLoggedIn, children }) {
+  return isLoggedIn ? <Navigate replace to='/' /> : children;
 }
 
 function App() {
   const [user, setUser] = useState<Org | User | null>(sampleOrg);
   const [isUser, setIsUser] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(localStorage.getItem('isLoggedIn'));
 
   const updateOrgEvents = (events: Event[]) => {
     if (!isUser) setUser({ ...user, events });
@@ -36,15 +37,15 @@ function App() {
           <Route
             path='/login'
             element={
-              <PublicRoute user={user}>
-                <Login setUser={setUser} setIsUser={setIsUser} />
+              <PublicRoute isLoggedIn={isLoggedIn}>
+                <Login setUser={setUser} setIsUser={setIsUser} setIsLoggedIn={setIsLoggedIn} />
               </PublicRoute>
             }
           />
           <Route
             path='/'
             element={
-              <PrivateRoute user={user}>
+              <PrivateRoute isLoggedIn={isLoggedIn}>
                 {!isUser ? <OrgHome events={(user as Org).events} /> : <UserHome />}
               </PrivateRoute>
             }
@@ -52,7 +53,7 @@ function App() {
           <Route
             path='/event'
             element={
-              <PrivateRoute user={user}>
+              <PrivateRoute isLoggedIn={isLoggedIn}>
                 {!isUser && <AddEvent _id={user._id} updateOrgEvents={updateOrgEvents} />}
               </PrivateRoute>
             }
