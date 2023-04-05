@@ -1,5 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
-
+import { OrgModel } from '../models/OrgModel.js';
 const orgController: Record<string, any> = {};
 
 // login
@@ -8,10 +7,26 @@ orgController.login = async (req, res, next) => {};
 
 // signup
 // handle auth here
-orgController.singUp = async (req, res, next) => {};
+orgController.signUp = async (req, res, next) => {
+  try {
+    const { orgName, username, password, causes, events } = req.body;
+    const newOrg = new OrgModel({
+      orgName,
+      username,
+      password,
+      causes,
+      events,
+    });
+    const savedNewOrg = await newOrg.save();
+    res.locals.org = savedNewOrg;
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+};
 
-// update causes
-orgController.updateCauses = async (req, res, next) => {};
+// handles updating causes
+orgController.updateOrg = async (req, res, next) => {};
 
 // add event
 orgController.addEvent = async (req, res, next) => {};
