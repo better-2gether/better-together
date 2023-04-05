@@ -8,20 +8,15 @@ import './App.css';
 
 function App() {
   const [user, setUser] = useState(sampleOrg);
+  const [isUser, setIsUser] = useState(false);
 
   return (
     <div className='App'>
       <BrowserRouter>
-        <Navbar userType={user.type} user={user} />
+        <Navbar isUser={isUser} user={user} />
         <Routes>
-          <Route
-            path='/'
-            element={user.type === 'organization' ? <OrgHome events={user.events} /> : <UserHome />}
-          />
-          <Route
-            path='/event'
-            element={user.type === 'organization' && <AddEvent orgId={user.orgId} />}
-          />
+          <Route path='/' element={!isUser ? <OrgHome events={user.events} /> : <UserHome />} />
+          <Route path='/event' element={!isUser && <AddEvent orgId={user.orgId} />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

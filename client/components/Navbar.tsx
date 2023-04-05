@@ -3,12 +3,12 @@ import { NavLink } from 'react-router-dom';
 import type { Org, User } from '../types';
 
 interface NavbarProps {
-  userType: string;
+  isUser: boolean;
   user: Org | User | null;
 }
 
 const Navbar = (props: NavbarProps): JSX.Element => {
-  const { userType, user } = props;
+  const { isUser, user } = props;
 
   return (
     <div className={styles.nav}>
@@ -17,7 +17,7 @@ const Navbar = (props: NavbarProps): JSX.Element => {
           Better Together
         </NavLink>
         <ul className={styles.navList}>
-          {userType === 'organization' && (
+          {!isUser && (
             <li>
               <NavLink className={styles.btnEvent} to='/event'>
                 Add Event
