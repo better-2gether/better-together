@@ -1,0 +1,24 @@
+.formRow {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 10px 0;
+}
+
+.formRadioOption label {
+  border: 1px solid black;
+  padding: 7px 20px;
+  cursor: pointer;
+}
+
+.formRadioOption input[type='radio'] {
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.formRadioOption input[type='radio']:checked + label {
+  background-color: var(--color-secondary);
+  color: white;
+}
