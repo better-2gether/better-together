@@ -49,4 +49,12 @@ router.patch(
   }
 );
 
+router.delete('/deleteEvent', orgController.deleteEvent, (req, res) => {
+  res.status(200).json('Event Deleted');
+});
+
+router.delete('/deleteOrg', orgController.deleteOrg, (req, res) => {
+  res.status(200).json('Org Deleted');
+});
+
 export default router;
