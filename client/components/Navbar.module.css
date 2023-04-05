@@ -1,0 +1,40 @@
+.nav {
+  background-color: var(--color-secondary);
+  color: white;
+  position: sticky;
+  top: 0;
+  height: 45px;
+  width: 100%;
+  box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.137);
+}
+
+.navContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  max-width: 1200px;
+  padding: 0 10px;
+}
+
+.link {
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logoLink {
+  composes: link;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.navList {
+  list-style: none;
+}
+
+.btnEvent {
+  composes: link;
+}

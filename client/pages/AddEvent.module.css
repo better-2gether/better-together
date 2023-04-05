@@ -1,0 +1,80 @@
+@import './commonStyles.module.css';
+
+.container {
+  composes: mainContainer;
+}
+
+.form {
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.formRow {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 10px 0;
+}
+
+.formRow label {
+  width: 50%;
+}
+
+.formRow input {
+  width: 50%;
+}
+
+.formCol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.needs {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.needsList {
+  font-size: 1rem;
+  width: 200px;
+  list-style: none;
+  padding: 5px 8px;
+  background-color: var(--color-secondary);
+  color: white;
+  min-height: 100px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.needsList li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.needsList button {
+  margin: 2px;
+}
+
+.formSuccess {
+  margin: 10px;
+  color: rgb(1, 79, 1);
+}
+
+.formFailure {
+  margin: 10px;
+  color: red;
+}
+
+@media (min-width: 600px) {
+  .needs {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+  }
+}

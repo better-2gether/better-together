@@ -1,4 +1,4 @@
-const exports = {
+module.exports = {
   env: {
     browser: true,
     es2021: true,
@@ -6,6 +6,7 @@ const exports = {
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
     'plugin:@typescript-eslint/recommended',
   ],
   overrides: [],
@@ -23,6 +24,9 @@ const exports = {
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
     ],
   },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
 };
-
-export default exports;
