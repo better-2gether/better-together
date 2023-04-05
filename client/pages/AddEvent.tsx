@@ -3,9 +3,10 @@ import type { ObjectId } from 'mongodb';
 import type { Event } from '../types';
 import styles from './AddEvent.module.css';
 
+// TODO: add form validation to prevent submit when form not completely filled out
 interface AddEventProps {
   _id: ObjectId;
-  updateOrgEvents: (events: Event) => void;
+  updateOrgEvents: (events: Event[]) => void;
 }
 
 const AddEvent = (props: AddEventProps): JSX.Element => {

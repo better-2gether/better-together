@@ -17,16 +17,6 @@ function App() {
     if (!isUser) setUser({ ...user, events });
   };
 
-  // useEffect(() => {
-  //   fetch('/api/data')
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(JSON.stringify(data));
-  //       setMessage(data.message);
-  //     })
-  //     .catch((error) => console.error(error));
-  // }, []);
-
   return (
     <div className='App'>
       <BrowserRouter>
