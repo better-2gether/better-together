@@ -1,5 +1,5 @@
 import React from 'react'
-import Causes from '../components/causes';
+import Causes from '../components/causes.js';
 
 function OrgProfile() {
     // get org details using react router from home component

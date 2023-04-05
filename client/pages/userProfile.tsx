@@ -1,6 +1,6 @@
 import React from 'react'
-import Preferences from '../components/preferences';
-import Skills from '../components/skills';
+import Preferences from '../components/preferences.js';
+import Skills from '../components/skills.js';
 
 
 function UserProfile() {

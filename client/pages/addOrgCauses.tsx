@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import AddCauses from '../components/addCauses';
+import AddCauses from '../components/addCauses.js';
 
 function AddOrgCauses({ currCauses }) {
 

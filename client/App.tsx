@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
-import UserProfile from './pages/userProfile';
-import AddUserPreferences from './pages/addUserPreferences';
-import OrgProfile from './pages/orgProfile';
-import AddOrgCauses from './pages/addOrgCauses';
+import UserProfile from './pages/userProfile.js';
+import AddUserPreferences from './pages/addUserPreferences.js';
+import OrgProfile from './pages/orgProfile.js';
+import AddOrgCauses from './pages/addOrgCauses.js';
 
 function App() {
 

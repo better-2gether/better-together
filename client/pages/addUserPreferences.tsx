@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import AddPreferences from '../components/addPreferences'
-import AddSkills from '../components/addSkills'
+import AddPreferences from '../components/addPreferences.js'
+import AddSkills from '../components/addSkills.js'
 
 function addUserPreferences() {
   // this component will recieve the currPreferences, currSkills and userId from other components
