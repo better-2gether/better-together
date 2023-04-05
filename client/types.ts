@@ -1,16 +1,18 @@
+import type { ObjectId } from 'mongodb';
+
 export interface User {
-  userId: any;
+  _id: ObjectId;
   firstName: string;
   lastName: string;
   username: string;
-  password: string;
+  password?: string;
   skills: string[];
   preferences: { [key: string]: 0 | 1 | 2 };
   eventRanks: { event: Event; rank: number }[];
 }
 
 export interface Event {
-  eventId: any;
+  _id: ObjectId;
   title: string;
   date: Date;
   needs: string[];
@@ -18,10 +20,10 @@ export interface Event {
 }
 
 export interface Org {
-  orgId: any;
+  _id: ObjectId;
   orgName: string;
   username: string;
-  password: string;
+  password?: string;
   causes: string[];
   events: Event[];
 }

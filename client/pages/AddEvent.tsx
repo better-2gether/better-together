@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import styles from './AddEvent.module.css';
+import type { ObjectId } from 'mongodb';
 
 interface AddEventProps {
-  orgId: string;
+  _id: ObjectId;
 }
 
 const AddEvent = (props: AddEventProps): JSX.Element => {
-  const { orgId } = props;
+  const { _id } = props;
 
   const [title, setTitle] = useState<string>('');
   const [date, setDate] = useState<string>(new Date().toDateString());
@@ -37,7 +38,7 @@ const AddEvent = (props: AddEventProps): JSX.Element => {
           'Content-Type': 'Application/JSON',
         },
         body: JSON.stringify({
-          orgId,
+          _id,
           title,
           date,
           needs,

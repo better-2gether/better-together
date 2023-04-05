@@ -33,7 +33,7 @@ const OrgHome = (props: OrgHomeProps) => {
       <div className={styles.eventContainer}>
         {selectedEvents &&
           selectedEvents.map((event: Event, i: number): JSX.Element => {
-            return <EventCard key={event.eventId} event={event} darkStyle={i % 2 === 0} />;
+            return <EventCard key={event._id.toString()} event={event} darkStyle={i % 2 === 0} />;
           })}
       </div>
     </div>
