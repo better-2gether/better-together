@@ -1,18 +1,21 @@
 import { useState } from 'react';
 import type { ObjectId } from 'mongodb';
+import type { Event } from '../types';
 import styles from './AddEvent.module.css';
 
 interface AddEventProps {
   _id: ObjectId;
+  updateOrgEvents: (events: Event) => void;
 }
 
 const AddEvent = (props: AddEventProps): JSX.Element => {
-  const { _id } = props;
+  const { _id, updateOrgEvents } = props;
 
   const [title, setTitle] = useState<string>('');
   const [date, setDate] = useState<string>(new Date().toDateString());
   const [need, setNeed] = useState<string>('');
   const [needs, setNeeds] = useState<string[]>([]);
+  const [formStatus, setFormStatus] = useState<'success' | 'failure' | ''>('');
 
   const needsList = [
     'Web Development',
@@ -46,10 +49,11 @@ const AddEvent = (props: AddEventProps): JSX.Element => {
       });
       if (!response.ok) throw Error;
       const data = await response.json();
-      // res: array of events, success/fail
-      // show either Event added! or Error adding event
-      // set user events --> pass function through props
-    } catch (err) {}
+      updateOrgEvents(data.events);
+      setFormStatus('success');
+    } catch (err) {
+      setFormStatus('failure');
+    }
   };
 
   const addNeed = () => {
@@ -75,13 +79,20 @@ const AddEvent = (props: AddEventProps): JSX.Element => {
             placeholder='Event title'
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            required
           />
         </div>
 
         {/* Event date */}
         <div className={styles.formRow}>
           <label htmlFor='date'>Date</label>
-          <input type='date' name='date' value={date} onChange={(e) => setDate(e.target.value)} />
+          <input
+            type='date'
+            name='date'
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+          />
         </div>
 
         {/* Event needs */}
@@ -115,6 +126,10 @@ const AddEvent = (props: AddEventProps): JSX.Element => {
         </div>
       </form>
       <button type='submit'>Add Event</button>
+      {formStatus === 'success' && <div className={styles.formSuccess}>Event added!</div>}
+      {formStatus === 'failure' && (
+        <div className={styles.formFailure}>Error adding event. Please try again.</div>
+      )}
     </div>
   );
 };

@@ -61,6 +61,16 @@
   margin: 2px;
 }
 
+.formSuccess {
+  margin: 10px;
+  color: rgb(1, 79, 1);
+}
+
+.formFailure {
+  margin: 10px;
+  color: red;
+}
+
 @media (min-width: 600px) {
   .needs {
     flex-direction: row;
